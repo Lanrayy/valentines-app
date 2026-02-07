@@ -201,8 +201,12 @@
 
       // Silent Google Sheets tracking
       if (TRACKING_URL) {
-        fetch(TRACKING_URL + '?response=yes&ua=' + encodeURIComponent(navigator.userAgent))
-          .catch(() => {}); // Silent fail - don't alert user on errors
+        const separator = TRACKING_URL.includes('?') ? '&' : '?';
+        fetch(TRACKING_URL + separator + 'response=yes&ua=' + encodeURIComponent(navigator.userAgent))
+          .catch((error) => {
+            // Silent fail - log for debugging but don't alert user
+            console.error('Tracking failed:', error);
+          });
       }
 
       // WhatsApp message
