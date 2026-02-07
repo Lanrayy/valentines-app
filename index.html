@@ -1,277 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Be My Valentine 💘</title>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Be My Valentine 💘</title>
 
-  <style>
-    :root {
-      --pink: #ffb6c1;
-      --hot-pink: #ff5e8a;
-      --bg: #fff0f5;
-      --text: #5a2a3c;
-    }
+		<style>
+			:root {
+				--pink: #ffb6c1;
+				--hot-pink: #ff5e8a;
+				--bg: #fff0f5;
+				--text: #5a2a3c;
+			}
 
-    * {
-      box-sizing: border-box;
-      font-family: "Comic Sans MS", "Poppins", system-ui, sans-serif;
-    }
+			* {
+				box-sizing: border-box;
+				font-family: "Comic Sans MS", "Poppins", system-ui, sans-serif;
+			}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #ffe6ee, #fff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      color: var(--text);
-    }
+			body {
+				margin: 0;
+				min-height: 100vh;
+				background: linear-gradient(135deg, #ffe6ee, #fff);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				overflow: hidden;
+				color: var(--text);
+			}
 
-    .card {
-      background: white;
-      padding: 2rem;
-      border-radius: 24px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-      text-align: center;
-      max-width: 420px;
-      width: 90%;
-      position: relative;
-      z-index: 2;
-    }
+			.card {
+				background: white;
+				padding: 2rem;
+				border-radius: 24px;
+				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+				text-align: center;
+				max-width: 420px;
+				width: 90%;
+				position: relative;
+				z-index: 2;
+			}
 
-    h1 {
-      margin-top: 0;
-      font-size: 1.8rem;
-    }
+			h1 {
+				margin-top: 0;
+				font-size: 1.8rem;
+			}
 
-    p {
-      margin-bottom: 1.5rem;
-    }
+			p {
+				margin-bottom: 1.5rem;
+			}
 
-    .gif-container {
-      width: 100%;
-      height: 260px;
-      border-radius: 16px;
-      background: #ffe4ec;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-      overflow: hidden;
-    }
+			.gif-container {
+				width: 100%;
+				height: 260px;
+				border-radius: 16px;
+				background: #ffe4ec;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin-bottom: 1.5rem;
+				overflow: hidden;
+			}
 
-    .gif-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+			.gif-container img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
 
-    .buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      height: 80px; 
-    }
+			.buttons {
+				display: flex;
+				gap: 1rem;
+				justify-content: center;
+				align-items: center;
+				position: relative;
+				height: 80px;
+			}
 
-    button {
-      border: none;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: transform 0.2s ease, left 0.2s ease, top 0.2s ease;
-      white-space: nowrap;
-    }
+			button {
+				border: none;
+				padding: 0.75rem 1.5rem;
+				font-size: 1rem;
+				border-radius: 999px;
+				cursor: pointer;
+				transition: transform 0.2s ease, left 0.2s ease, top 0.2s ease;
+				white-space: nowrap;
+			}
 
-    #yesBtn {
-      background: var(--hot-pink);
-      color: white;
-      z-index: 5;
-      animation: pulse 1.5s infinite;
-    }
+			#yesBtn {
+				background: var(--hot-pink);
+				color: white;
+				z-index: 5;
+				animation: pulse 1.5s infinite;
+			}
 
-    #yesBtn:hover {
-      transform: scale(1.1);
-    }
+			#yesBtn:hover {
+				transform: scale(1.1);
+			}
 
-    #noBtn {
-      background: #eee;
-      color: #555;
-      position: relative; 
-      z-index: 4;
-    }
+			#noBtn {
+				background: #eee;
+				color: #555;
+				position: relative;
+				z-index: 4;
+			}
 
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(255,94,138,0.6); }
-      70% { box-shadow: 0 0 0 15px rgba(255,94,138,0); }
-      100% { box-shadow: 0 0 0 0 rgba(255,94,138,0); }
-    }
+			@keyframes pulse {
+				0% {
+					box-shadow: 0 0 0 0 rgba(255, 94, 138, 0.6);
+				}
+				70% {
+					box-shadow: 0 0 0 15px rgba(255, 94, 138, 0);
+				}
+				100% {
+					box-shadow: 0 0 0 0 rgba(255, 94, 138, 0);
+				}
+			}
 
-    canvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 10;
-    }
+			canvas {
+				position: fixed;
+				inset: 0;
+				pointer-events: none;
+				z-index: 10;
+			}
 
-    .hidden {
-      display: none !important;
-    }
+			.hidden {
+				display: none !important;
+			}
 
-    .contact-btn {
-      margin-top: 1rem;
-      background: #25D366;
-      color: white;
-      padding: 0.75rem 1.2rem;
-      border-radius: 999px;
-      display: inline-block;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
+			.contact-btn {
+				margin-top: 1rem;
+				background: #25d366;
+				color: white;
+				padding: 0.75rem 1.2rem;
+				border-radius: 999px;
+				display: inline-block;
+				text-decoration: none;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="confetti"></canvas>
 
-  <canvas id="confetti"></canvas>
+		<div class="card" id="card">
+			<!-- <h1 id="name">💖 Temini 💖</h1> -->
+			<h2 id="title">Will you be my Valentine? 💝</h2>
 
-  <div class="card" id="card">
-    <!-- <h1 id="name">💖 Temini 💖</h1> -->
-    <h2 id="title">Will you be my Valentine? 💝</h2>
+			<div class="gif-container">
+				<!-- High-quality, reliable GIF link -->
+				<img
+					id="display-gif"
+					src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXNmd3NmZXA1ZWJibWswa3M0dG9yMm8ycGVrN2JqNHR1NnhkOXZ2dyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l4Ki4biBSwhjyrS48/giphy.gif"
+					alt="Love heart"
+				/>
+			</div>
 
-    <div class="gif-container">
-      <!-- High-quality, reliable GIF link -->
-      <img id="display-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXNmd3NmZXA1ZWJibWswa3M0dG9yMm8ycGVrN2JqNHR1NnhkOXZ2dyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l4Ki4biBSwhjyrS48/giphy.gif" alt="Love heart">
-    </div>
+			<p id="subtitle">A exciting day awaits!</p>
 
-    <p id="subtitle">A exciting day awaits!</p>
+			<div class="buttons" id="buttons">
+				<button id="yesBtn">Yes 💖💖</button>
+				<button id="noBtn">No 🙃</button>
+			</div>
 
-    <div class="buttons" id="buttons">
-      <button id="yesBtn">Yes 💖💖</button>
-      <button id="noBtn">No 🙃</button>
-    </div>
+			<a id="contactLink" class="contact-btn hidden" target="_blank">
+				Send me the good news 💌
+			</a>
+		</div>
 
-    <a id="contactLink" class="contact-btn hidden" target="_blank">
-      Send me the good news 💌
-    </a>
-  </div>
+		<script>
+			/************* EDIT HERE *************/
+			const YOUR_NAME = "Lanre";
+			const EMAIL_ADDRESS = "lanre.sodeinde1@gmail.com";
+			const TRACKING_URL =
+				"https://script.google.com/macros/s/AKfycbxm8G1-6V7OPIFHr6UYCFEy392J1tvnsc2b2i6gaZF3B8sdl6VRz-SPd2XKl0ZGwQRAeA/exec";
+			/************************************/
 
-  <script>
-    /************* EDIT HERE *************/
-    const YOUR_NAME = "Your Name Here";
-    const WHATSAPP_NUMBER = "1234567890"; 
-    // Use international format, no + or spaces
-    // Example: "14155552671"
+			const noBtn = document.getElementById("noBtn");
+			const yesBtn = document.getElementById("yesBtn");
+			const card = document.getElementById("card");
+			const title = document.getElementById("title");
+			const name = document.getElementById("name");
+			const subtitle = document.getElementById("subtitle");
+			const buttons = document.getElementById("buttons");
+			const contactLink = document.getElementById("contactLink");
+			const displayGif = document.getElementById("display-gif");
 
-    const EMAIL_ADDRESS = "lanre.sodeinde1@gmail.com";
+			function moveNoButton() {
+				noBtn.style.position = "fixed";
+				const padding = 50;
+				const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+				const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
-    // Google Sheets Tracking URL (see SETUP.md for instructions)
-    const TRACKING_URL = "https://script.google.com/macros/s/AKfycbxm8G1-6V7OPIFHr6UYCFEy392J1tvnsc2b2i6gaZF3B8sdl6VRz-SPd2XKl0ZGwQRAeA/exec";
-    /************************************/
+				const x = Math.max(padding, Math.random() * maxX);
+				const y = Math.max(padding, Math.random() * maxY);
 
-    const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
-    const card = document.getElementById("card");
-    const title = document.getElementById("title");
-    const name = document.getElementById("name")
-    const subtitle = document.getElementById("subtitle");
-    const buttons = document.getElementById("buttons");
-    const contactLink = document.getElementById("contactLink");
-    const displayGif = document.getElementById("display-gif");
+				noBtn.style.left = `${x}px`;
+				noBtn.style.top = `${y}px`;
 
-    function moveNoButton() {
-      noBtn.style.position = 'fixed';
-      const padding = 50;
-      const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-      const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+				const currentScale = yesBtn.style.transform
+					? parseFloat(yesBtn.style.transform.replace("scale(", ""))
+					: 1;
+				yesBtn.style.transform = `scale(${currentScale + 0.1})`;
+			}
 
-      const x = Math.max(padding, Math.random() * maxX);
-      const y = Math.max(padding, Math.random() * maxY);
+			noBtn.addEventListener("mouseenter", moveNoButton);
+			noBtn.addEventListener("touchstart", (e) => {
+				e.preventDefault();
+				moveNoButton();
+			});
 
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top = `${y}px`;
-      
-      const currentScale = yesBtn.style.transform ? parseFloat(yesBtn.style.transform.replace('scale(', '')) : 1;
-      yesBtn.style.transform = `scale(${currentScale + 0.1})`;
-    }
+			yesBtn.addEventListener("click", () => {
+				celebrate();
+				title.textContent = "Yay! I knew you'd say yes! 🥹❤️💖💝";
+				subtitle.textContent = `Details to follow soon 😉💝`;
+				displayGif.src =
+					"https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHRjNnRidWxhb2J4cDkyeHIzNHVsZHk0OHBkcnRycmY2aXA4bmgwZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7kn27lnYSAE9O/giphy.gif";
+				buttons.classList.add("hidden");
+				noBtn.classList.add("hidden");
+				// name.classList.add("hidden");
 
-    noBtn.addEventListener("mouseenter", moveNoButton);
-    noBtn.addEventListener("touchstart", (e) => {
-      e.preventDefault();
-      moveNoButton();
-    });
+				// Silent Google Sheets tracking
+				if (TRACKING_URL) {
+					console.log("Sending tracking data to Google Sheets...");
+					const separator = TRACKING_URL.includes("?") ? "&" : "?";
+					fetch(
+						TRACKING_URL +
+							separator +
+							"response=yes&ua=" +
+							encodeURIComponent(navigator.userAgent)
+					).catch((error) => {
+						// Silent fail - log for debugging but don't alert user
+						console.error("Tracking failed:", error);
+					});
+				}
 
-    yesBtn.addEventListener("click", () => {
-      celebrate();
-      title.textContent = "Yay! I knew you'd say yes! 🥹❤️💖💝";
-      subtitle.textContent = `Details to follow soon 😉💝`;
-      displayGif.src = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHRjNnRidWxhb2J4cDkyeHIzNHVsZHk0OHBkcnRycmY2aXA4bmgwZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7kn27lnYSAE9O/giphy.gif";
-      buttons.classList.add("hidden");
-      noBtn.classList.add("hidden");
-      name.classList.add("hidden");
+				const message = encodeURIComponent(
+					`Hey ${YOUR_NAME}! 💖 I said YES to being your Valentine 😘`
+				);
+				// const emailURL = `mailto:${EMAIL_ADDRESS}?subject=Valentine%20Accepted!&body=${message}`;
 
-      // Silent Google Sheets tracking
-      if (TRACKING_URL) {
-        const separator = TRACKING_URL.includes('?') ? '&' : '?';
-        fetch(TRACKING_URL + separator + 'response=yes&ua=' + encodeURIComponent(navigator.userAgent))
-          .catch((error) => {
-            // Silent fail - log for debugging but don't alert user
-            console.error('Tracking failed:', error);
-          });
-      }
+				// contactLink.href = WHATSAPP_NUMBER ? whatsappURL : emailURL;
+				// contactLink.classList.remove("hidden");
+			});
 
-      // WhatsApp message
-      const message = encodeURIComponent(
-        `Hey ${YOUR_NAME}! 💖 I said YES to being your Valentine 😘`
-      );
+			/************* CONFETTI *************/
+			const canvas = document.getElementById("confetti");
+			const ctx = canvas.getContext("2d");
+			let confetti = [];
 
-      const message = encodeURIComponent(`Hey ${YOUR_NAME}! 💖 I said YES to being your Valentine 😘`);
-      const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
-      const emailURL = `mailto:${EMAIL_ADDRESS}?subject=Valentine%20Accepted!&body=${message}`;
+			function resizeCanvas() {
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+			}
+			window.addEventListener("resize", resizeCanvas);
+			resizeCanvas();
 
-      contactLink.href = WHATSAPP_NUMBER ? whatsappURL : emailURL;
-      contactLink.classList.remove("hidden");
-    });
+			function celebrate() {
+				for (let i = 0; i < 200; i++) {
+					confetti.push({
+						x: Math.random() * canvas.width,
+						y: Math.random() * canvas.height - canvas.height,
+						r: Math.random() * 6 + 4,
+						d: Math.random() * 0.5 + 0.5,
+						color: `hsl(${Math.random() * 360}, 80%, 70%)`,
+					});
+				}
+				requestAnimationFrame(drawConfetti);
+			}
 
-    /************* CONFETTI *************/
-    const canvas = document.getElementById("confetti");
-    const ctx = canvas.getContext("2d");
-    let confetti = [];
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
-
-    function celebrate() {
-      for (let i = 0; i < 200; i++) {
-        confetti.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height - canvas.height,
-          r: Math.random() * 6 + 4,
-          d: Math.random() * 0.5 + 0.5,
-          color: `hsl(${Math.random() * 360}, 80%, 70%)`
-        });
-      }
-      requestAnimationFrame(drawConfetti);
-    }
-
-    function drawConfetti() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      confetti.forEach((c) => {
-        ctx.beginPath();
-        ctx.fillStyle = c.color;
-        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
-        ctx.fill();
-        c.y += c.d * 10;
-      });
-      requestAnimationFrame(drawConfetti);
-    }
-  </script>
-</body>
+			function drawConfetti() {
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				confetti.forEach((c) => {
+					ctx.beginPath();
+					ctx.fillStyle = c.color;
+					ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+					ctx.fill();
+					c.y += c.d * 10;
+				});
+				requestAnimationFrame(drawConfetti);
+			}
+		</script>
+	</body>
 </html>
