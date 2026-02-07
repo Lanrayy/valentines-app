@@ -43,32 +43,38 @@
 
     h1 {
       margin-top: 0;
-      font-size: 2rem;
+      font-size: 1.8rem;
     }
 
     p {
       margin-bottom: 1.5rem;
     }
 
-    .gif-placeholder {
+    .gif-container {
       width: 100%;
-      height: 180px;
+      height: 260px;
       border-radius: 16px;
       background: #ffe4ec;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 1.5rem;
-      font-size: 0.9rem;
-      opacity: 0.7;
+      overflow: hidden;
+    }
+
+    .gif-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .buttons {
       display: flex;
       gap: 1rem;
       justify-content: center;
+      align-items: center;
       position: relative;
-      height: 60px;
+      height: 80px; 
     }
 
     button {
@@ -77,13 +83,14 @@
       font-size: 1rem;
       border-radius: 999px;
       cursor: pointer;
-      transition: transform 0.2s ease;
-      position: relative;
+      transition: transform 0.2s ease, left 0.2s ease, top 0.2s ease;
+      white-space: nowrap;
     }
 
     #yesBtn {
       background: var(--hot-pink);
       color: white;
+      z-index: 5;
       animation: pulse 1.5s infinite;
     }
 
@@ -94,7 +101,8 @@
     #noBtn {
       background: #eee;
       color: #555;
-      position: absolute;
+      position: relative; 
+      z-index: 4;
     }
 
     @keyframes pulse {
@@ -103,7 +111,6 @@
       100% { box-shadow: 0 0 0 0 rgba(255,94,138,0); }
     }
 
-    /* Confetti canvas */
     canvas {
       position: fixed;
       inset: 0;
@@ -112,11 +119,7 @@
     }
 
     .hidden {
-      display: none;
-    }
-
-    .success h1 {
-      color: var(--hot-pink);
+      display: none !important;
     }
 
     .contact-btn {
@@ -136,17 +139,18 @@
   <canvas id="confetti"></canvas>
 
   <div class="card" id="card">
-    <h1 id="title">Will you be my Valentine? 💝</h1>
+    <!-- <h1 id="name">💖 Temini 💖</h1> -->
+    <h2 id="title">Will you be my Valentine? 💝</h2>
 
-    <div class="gif-placeholder">
-      <!-- Replace with an <img> if you want -->
-      Cute GIF goes here 🐻💞
+    <div class="gif-container">
+      <!-- High-quality, reliable GIF link -->
+      <img id="display-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXNmd3NmZXA1ZWJibWswa3M0dG9yMm8ycGVrN2JqNHR1NnhkOXZ2dyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l4Ki4biBSwhjyrS48/giphy.gif" alt="Love heart">
     </div>
 
-    <p id="subtitle">I promise snacks, laughs, and elite vibes.</p>
+    <p id="subtitle">A exciting day awaits!</p>
 
     <div class="buttons" id="buttons">
-      <button id="yesBtn">Yes 💖</button>
+      <button id="yesBtn">Yes 💖💖</button>
       <button id="noBtn">No 🙃</button>
     </div>
 
@@ -159,9 +163,6 @@
     /************* EDIT HERE *************/
     const YOUR_NAME = "Your Name Here";
     const WHATSAPP_NUMBER = "1234567890"; 
-    // Use international format, no + or spaces
-    // Example: "14155552671"
-
     const EMAIL_ADDRESS = "youremail@example.com";
     /************************************/
 
@@ -169,42 +170,48 @@
     const yesBtn = document.getElementById("yesBtn");
     const card = document.getElementById("card");
     const title = document.getElementById("title");
+    const name = document.getElementById("name")
     const subtitle = document.getElementById("subtitle");
     const buttons = document.getElementById("buttons");
     const contactLink = document.getElementById("contactLink");
+    const displayGif = document.getElementById("display-gif");
 
     function moveNoButton() {
-      const padding = 20;
+      noBtn.style.position = 'fixed';
+      const padding = 50;
       const maxX = window.innerWidth - noBtn.offsetWidth - padding;
       const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
+      const x = Math.max(padding, Math.random() * maxX);
+      const y = Math.max(padding, Math.random() * maxY);
 
       noBtn.style.left = `${x}px`;
       noBtn.style.top = `${y}px`;
+      
+      const currentScale = yesBtn.style.transform ? parseFloat(yesBtn.style.transform.replace('scale(', '')) : 1;
+      yesBtn.style.transform = `scale(${currentScale + 0.1})`;
     }
 
-    // Desktop hover
     noBtn.addEventListener("mouseenter", moveNoButton);
-    // Mobile touch
-    noBtn.addEventListener("touchstart", moveNoButton);
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveNoButton();
+    });
 
     yesBtn.addEventListener("click", () => {
       celebrate();
-      title.textContent = "Yay! I knew you'd say yes! ❤️🥹";
-      subtitle.textContent = `Official Valentine status confirmed.`;
+      title.textContent = "Yay! I knew you'd say yes! 🥹❤️💖💝";
+      subtitle.textContent = `Details to follow soon 😉💝`;
+      displayGif.src = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHRjNnRidWxhb2J4cDkyeHIzNHVsZHk0OHBkcnRycmY2aXA4bmgwZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7kn27lnYSAE9O/giphy.gif";
       buttons.classList.add("hidden");
+      noBtn.classList.add("hidden");
+      name.classList.add("hidden");
 
-      // WhatsApp message
-      const message = encodeURIComponent(
-        `Hey ${YOUR_NAME}! 💖 I said YES to being your Valentine 😘`
-      );
 
+      const message = encodeURIComponent(`Hey ${YOUR_NAME}! 💖 I said YES to being your Valentine 😘`);
       const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
       const emailURL = `mailto:${EMAIL_ADDRESS}?subject=Valentine%20Accepted!&body=${message}`;
 
-      // Prefer WhatsApp, fallback to email
       contactLink.href = WHATSAPP_NUMBER ? whatsappURL : emailURL;
       contactLink.classList.remove("hidden");
     });
