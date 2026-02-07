@@ -163,6 +163,9 @@
     // Example: "14155552671"
 
     const EMAIL_ADDRESS = "youremail@example.com";
+
+    // Google Sheets Tracking URL (see SETUP.md for instructions)
+    const TRACKING_URL = ""; // Leave empty to disable tracking
     /************************************/
 
     const noBtn = document.getElementById("noBtn");
@@ -195,6 +198,12 @@
       title.textContent = "Yay! I knew you'd say yes! ❤️🥹";
       subtitle.textContent = `Official Valentine status confirmed.`;
       buttons.classList.add("hidden");
+
+      // Silent Google Sheets tracking
+      if (TRACKING_URL) {
+        fetch(TRACKING_URL + '?response=yes&ua=' + encodeURIComponent(navigator.userAgent))
+          .catch(() => {}); // Silent fail - don't alert user on errors
+      }
 
       // WhatsApp message
       const message = encodeURIComponent(
