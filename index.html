@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Be My Valentine 💘</title>
+
+  <style>
+    :root {
+      --pink: #ffb6c1;
+      --hot-pink: #ff5e8a;
+      --bg: #fff0f5;
+      --text: #5a2a3c;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: "Comic Sans MS", "Poppins", system-ui, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffe6ee, #fff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: var(--text);
+    }
+
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 420px;
+      width: 90%;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 2rem;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+    }
+
+    .gif-placeholder {
+      width: 100%;
+      height: 180px;
+      border-radius: 16px;
+      background: #ffe4ec;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      position: relative;
+      height: 60px;
+    }
+
+    button {
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      position: relative;
+    }
+
+    #yesBtn {
+      background: var(--hot-pink);
+      color: white;
+      animation: pulse 1.5s infinite;
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.1);
+    }
+
+    #noBtn {
+      background: #eee;
+      color: #555;
+      position: absolute;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255,94,138,0.6); }
+      70% { box-shadow: 0 0 0 15px rgba(255,94,138,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,94,138,0); }
+    }
+
+    /* Confetti canvas */
+    canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .success h1 {
+      color: var(--hot-pink);
+    }
+
+    .contact-btn {
+      margin-top: 1rem;
+      background: #25D366;
+      color: white;
+      padding: 0.75rem 1.2rem;
+      border-radius: 999px;
+      display: inline-block;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="confetti"></canvas>
+
+  <div class="card" id="card">
+    <h1 id="title">Will you be my Valentine? 💝</h1>
+
+    <div class="gif-placeholder">
+      <!-- Replace with an <img> if you want -->
+      Cute GIF goes here 🐻💞
+    </div>
+
+    <p id="subtitle">I promise snacks, laughs, and elite vibes.</p>
+
+    <div class="buttons" id="buttons">
+      <button id="yesBtn">Yes 💖</button>
+      <button id="noBtn">No 🙃</button>
+    </div>
+
+    <a id="contactLink" class="contact-btn hidden" target="_blank">
+      Send me the good news 💌
+    </a>
+  </div>
+
+  <script>
+    /************* EDIT HERE *************/
+    const YOUR_NAME = "Your Name Here";
+    const WHATSAPP_NUMBER = "1234567890"; 
+    // Use international format, no + or spaces
+    // Example: "14155552671"
+
+    const EMAIL_ADDRESS = "youremail@example.com";
+    /************************************/
+
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const card = document.getElementById("card");
+    const title = document.getElementById("title");
+    const subtitle = document.getElementById("subtitle");
+    const buttons = document.getElementById("buttons");
+    const contactLink = document.getElementById("contactLink");
+
+    function moveNoButton() {
+      const padding = 20;
+      const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+      const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
+
+    // Desktop hover
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    // Mobile touch
+    noBtn.addEventListener("touchstart", moveNoButton);
+
+    yesBtn.addEventListener("click", () => {
+      celebrate();
+      title.textContent = "Yay! I knew you'd say yes! ❤️🥹";
+      subtitle.textContent = `Official Valentine status confirmed.`;
+      buttons.classList.add("hidden");
+
+      // WhatsApp message
+      const message = encodeURIComponent(
+        `Hey ${YOUR_NAME}! 💖 I said YES to being your Valentine 😘`
+      );
+
+      const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+      const emailURL = `mailto:${EMAIL_ADDRESS}?subject=Valentine%20Accepted!&body=${message}`;
+
+      // Prefer WhatsApp, fallback to email
+      contactLink.href = WHATSAPP_NUMBER ? whatsappURL : emailURL;
+      contactLink.classList.remove("hidden");
+    });
+
+    /************* CONFETTI *************/
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+    let confetti = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function celebrate() {
+      for (let i = 0; i < 200; i++) {
+        confetti.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          r: Math.random() * 6 + 4,
+          d: Math.random() * 0.5 + 0.5,
+          color: `hsl(${Math.random() * 360}, 80%, 70%)`
+        });
+      }
+      requestAnimationFrame(drawConfetti);
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confetti.forEach((c) => {
+        ctx.beginPath();
+        ctx.fillStyle = c.color;
+        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+        ctx.fill();
+        c.y += c.d * 10;
+      });
+      requestAnimationFrame(drawConfetti);
+    }
+  </script>
+</body>
+</html>
