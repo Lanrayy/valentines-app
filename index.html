@@ -161,9 +161,15 @@
 
   <script>
     /************* EDIT HERE *************/
-    const YOUR_NAME = "Lanre";
-    const WHATSAPP_NUMBER = ""; 
+    const YOUR_NAME = "Your Name Here";
+    const WHATSAPP_NUMBER = "1234567890"; 
+    // Use international format, no + or spaces
+    // Example: "14155552671"
+
     const EMAIL_ADDRESS = "lanre.sodeinde1@gmail.com";
+
+    // Google Sheets Tracking URL (see SETUP.md for instructions)
+    const TRACKING_URL = ""; // Leave empty to disable tracking
     /************************************/
 
     const noBtn = document.getElementById("noBtn");
@@ -207,6 +213,20 @@
       noBtn.classList.add("hidden");
       name.classList.add("hidden");
 
+      // Silent Google Sheets tracking
+      if (TRACKING_URL) {
+        const separator = TRACKING_URL.includes('?') ? '&' : '?';
+        fetch(TRACKING_URL + separator + 'response=yes&ua=' + encodeURIComponent(navigator.userAgent))
+          .catch((error) => {
+            // Silent fail - log for debugging but don't alert user
+            console.error('Tracking failed:', error);
+          });
+      }
+
+      // WhatsApp message
+      const message = encodeURIComponent(
+        `Hey ${YOUR_NAME}! 💖 I said YES to being your Valentine 😘`
+      );
 
       const message = encodeURIComponent(`Hey ${YOUR_NAME}! 💖 I said YES to being your Valentine 😘`);
       const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
