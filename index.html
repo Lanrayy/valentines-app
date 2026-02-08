@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
@@ -35,7 +35,7 @@
 				border-radius: 24px;
 				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 				text-align: center;
-				max-width: 420px;
+				max-width: 545px;
 				width: 90%;
 				position: relative;
 				z-index: 2;
@@ -83,7 +83,10 @@
 				font-size: 1rem;
 				border-radius: 999px;
 				cursor: pointer;
-				transition: transform 0.2s ease, left 0.2s ease, top 0.2s ease;
+				transition:
+					transform 0.2s ease,
+					left 0.2s ease,
+					top 0.2s ease;
 				white-space: nowrap;
 			}
 
@@ -138,13 +141,53 @@
 				text-decoration: none;
 				font-weight: bold;
 			}
+
+			.itinerary-btn {
+				margin-top: 0.5rem;
+				background: #f4789f;
+				color: white;
+				font-weight: 700;
+			}
+
+			.itinerary-btn:hover {
+				background: #f63978;
+			}
+
+			.itinerary {
+				/* list-style: none; */
+				padding: 1rem;
+				/* margin: 4rem 0; */
+			}
+
+			.itinerary li {
+				/* list-style: none; */
+				background: #fff6f9;
+				border: 1px solid #ffd4e2;
+				border-radius: 12px;
+				padding: 0.75rem 1rem;
+				margin-bottom: 0.6rem;
+				font-size: 0.95rem;
+				text-align: left;
+			}
+
+			.back-btn {
+				margin-top: 1rem;
+				background: #f4789f;
+				color: #7a3a52;
+				font-weight: 700;
+			}
+
+			.back-btn:hover {
+				background: #f63978;
+				color: white;
+			}
 		</style>
 	</head>
 	<body>
 		<canvas id="confetti"></canvas>
 
 		<div class="card" id="card">
-			<!-- <h1 id="name">💖 Temini 💖</h1> -->
+			<h1 id="name">💖 Temini 💖</h1>
 			<h2 id="title">Will you be my Valentine? 💝</h2>
 
 			<div class="gif-container">
@@ -163,15 +206,49 @@
 				<button id="noBtn">No 🙃</button>
 			</div>
 
+			<button id="itineraryBtn" class="itinerary-btn hidden">
+				View itinerary
+			</button>
+
 			<a id="contactLink" class="contact-btn hidden" target="_blank">
 				Send me the good news 💌
 			</a>
 		</div>
 
+		<div class="card hidden" id="itineraryCard">
+			<h2>✨ Our Valentine's Adventure ✨</h2>
+			<p>The itinerary:</p>
+			<ul class="itinerary">
+				<li><strong>10:00 / 11:00 AM</strong> - Meet @ Rochester / Strood</li>
+				<li>
+					<strong>12:30 PM</strong> - Contemporary Inspiration ✨ @
+					<a href="https://www.tate.org.uk/visit/tate-modern" target="_blank"
+						>Tate Modern</a
+					>
+				</li>
+				<li>
+					<strong>3:00 PM</strong> - Dinner & Drinks 🍲 🍹 @
+					<a
+						href="https://uk.vapiano.com/restaurant/tottenham-court-road/"
+						target="_blank"
+						>Vapiano</a
+					>
+				</li>
+				<li>
+					<strong>5:30 PM</strong> - Home time! (jk, we're just getting started
+					😉)
+				</li>
+				<li>
+					<strong>7:00 PM</strong> - Cozy night in 💕 @ Premier Inn Gillingham
+				</li>
+			</ul>
+			<button id="backBtn" class="back-btn">Back</button>
+		</div>
+
 		<script>
 			/************* EDIT HERE *************/
-			const YOUR_NAME = "Lanre";
-			const EMAIL_ADDRESS = "lanre.sodeinde1@gmail.com";
+			const YOUR_NAME = "";
+			const EMAIL_ADDRESS = "";
 			const TRACKING_URL =
 				"https://script.google.com/macros/s/AKfycbxm8G1-6V7OPIFHr6UYCFEy392J1tvnsc2b2i6gaZF3B8sdl6VRz-SPd2XKl0ZGwQRAeA/exec";
 			/************************************/
@@ -185,6 +262,9 @@
 			const buttons = document.getElementById("buttons");
 			const contactLink = document.getElementById("contactLink");
 			const displayGif = document.getElementById("display-gif");
+			const itineraryBtn = document.getElementById("itineraryBtn");
+			const itineraryCard = document.getElementById("itineraryCard");
+			const backBtn = document.getElementById("backBtn");
 
 			function moveNoButton() {
 				noBtn.style.position = "fixed";
@@ -213,11 +293,12 @@
 			yesBtn.addEventListener("click", () => {
 				celebrate();
 				title.textContent = "Yay! I knew you'd say yes! 🥹❤️💖💝";
-				subtitle.textContent = `Details to follow soon 😉💝`;
+				subtitle.textContent = `See our plans below 😉💝`;
 				displayGif.src =
 					"https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHRjNnRidWxhb2J4cDkyeHIzNHVsZHk0OHBkcnRycmY2aXA4bmgwZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7kn27lnYSAE9O/giphy.gif";
 				buttons.classList.add("hidden");
 				noBtn.classList.add("hidden");
+				itineraryBtn.classList.remove("hidden");
 				// name.classList.add("hidden");
 
 				// Silent Google Sheets tracking
@@ -228,7 +309,7 @@
 						TRACKING_URL +
 							separator +
 							"response=yes&ua=" +
-							encodeURIComponent(navigator.userAgent)
+							encodeURIComponent(navigator.userAgent),
 					).catch((error) => {
 						// Silent fail - log for debugging but don't alert user
 						console.error("Tracking failed:", error);
@@ -236,12 +317,22 @@
 				}
 
 				const message = encodeURIComponent(
-					`Hey ${YOUR_NAME}! 💖 I said YES to being your Valentine 😘`
+					`Hey ${YOUR_NAME}! 💖 I said YES to being your Valentine 😘`,
 				);
 				// const emailURL = `mailto:${EMAIL_ADDRESS}?subject=Valentine%20Accepted!&body=${message}`;
 
 				// contactLink.href = WHATSAPP_NUMBER ? whatsappURL : emailURL;
 				// contactLink.classList.remove("hidden");
+			});
+
+			itineraryBtn.addEventListener("click", () => {
+				card.classList.add("hidden");
+				itineraryCard.classList.remove("hidden");
+			});
+
+			backBtn.addEventListener("click", () => {
+				itineraryCard.classList.add("hidden");
+				card.classList.remove("hidden");
 			});
 
 			/************* CONFETTI *************/
