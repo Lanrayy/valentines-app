@@ -138,6 +138,60 @@
 				text-decoration: none;
 				font-weight: bold;
 			}
+
+			.itinerary-btn {
+				margin-top: 1rem;
+				background: var(--hot-pink);
+				color: white;
+				padding: 0.75rem 1.5rem;
+				border-radius: 999px;
+				border: none;
+				font-size: 1rem;
+				cursor: pointer;
+				font-weight: bold;
+			}
+
+			.itinerary-btn:hover {
+				transform: scale(1.05);
+			}
+
+			.itinerary-list {
+				text-align: left;
+				margin: 1.5rem 0;
+			}
+
+			.itinerary-item {
+				margin: 1rem 0;
+				padding: 1rem;
+				background: #fff0f5;
+				border-radius: 12px;
+				border-left: 4px solid var(--hot-pink);
+			}
+
+			.itinerary-time {
+				font-weight: bold;
+				color: var(--hot-pink);
+				margin-bottom: 0.25rem;
+			}
+
+			.itinerary-activity {
+				color: var(--text);
+			}
+
+			.back-btn {
+				margin-top: 1rem;
+				background: #eee;
+				color: #555;
+				padding: 0.75rem 1.5rem;
+				border-radius: 999px;
+				border: none;
+				font-size: 1rem;
+				cursor: pointer;
+			}
+
+			.back-btn:hover {
+				background: #ddd;
+			}
 		</style>
 	</head>
 	<body>
@@ -166,6 +220,46 @@
 			<a id="contactLink" class="contact-btn hidden" target="_blank">
 				Send me the good news 💌
 			</a>
+
+			<button id="itineraryBtn" class="itinerary-btn hidden">
+				View Itinerary 📅
+			</button>
+		</div>
+
+		<!-- Itinerary Card -->
+		<div class="card hidden" id="itineraryCard">
+			<h2 id="itineraryTitle">Our Valentine's Day Itinerary 💕</h2>
+
+			<div class="itinerary-list">
+				<div class="itinerary-item">
+					<div class="itinerary-time">10:00 AM - 12:00 PM</div>
+					<div class="itinerary-activity">Brunch at your favorite café ☕🥐</div>
+				</div>
+
+				<div class="itinerary-item">
+					<div class="itinerary-time">12:30 PM - 3:00 PM</div>
+					<div class="itinerary-activity">Romantic walk in the park 🌳💑</div>
+				</div>
+
+				<div class="itinerary-item">
+					<div class="itinerary-time">3:30 PM - 5:00 PM</div>
+					<div class="itinerary-activity">Movie time with snacks 🎬🍿</div>
+				</div>
+
+				<div class="itinerary-item">
+					<div class="itinerary-time">7:00 PM - 9:00 PM</div>
+					<div class="itinerary-activity">Candlelit dinner at a special restaurant 🕯️🍽️</div>
+				</div>
+
+				<div class="itinerary-item">
+					<div class="itinerary-time">9:30 PM onwards</div>
+					<div class="itinerary-activity">Stargazing and quality time together ⭐💖</div>
+				</div>
+			</div>
+
+			<button id="backBtn" class="back-btn">
+				← Back
+			</button>
 		</div>
 
 		<script>
@@ -185,6 +279,9 @@
 			const buttons = document.getElementById("buttons");
 			const contactLink = document.getElementById("contactLink");
 			const displayGif = document.getElementById("display-gif");
+			const itineraryBtn = document.getElementById("itineraryBtn");
+			const itineraryCard = document.getElementById("itineraryCard");
+			const backBtn = document.getElementById("backBtn");
 
 			function moveNoButton() {
 				noBtn.style.position = "fixed";
@@ -213,11 +310,12 @@
 			yesBtn.addEventListener("click", () => {
 				celebrate();
 				title.textContent = "Yay! I knew you'd say yes! 🥹❤️💖💝";
-				subtitle.textContent = `Details to follow soon 😉💝`;
+				subtitle.textContent = `Click below to see what I have planned! 😉💝`;
 				displayGif.src =
 					"https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHRjNnRidWxhb2J4cDkyeHIzNHVsZHk0OHBkcnRycmY2aXA4bmgwZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7kn27lnYSAE9O/giphy.gif";
 				buttons.classList.add("hidden");
 				noBtn.classList.add("hidden");
+				itineraryBtn.classList.remove("hidden");
 				// name.classList.add("hidden");
 
 				// Silent Google Sheets tracking
@@ -280,6 +378,17 @@
 				});
 				requestAnimationFrame(drawConfetti);
 			}
+
+			/************* NAVIGATION *************/
+			itineraryBtn.addEventListener("click", () => {
+				card.classList.add("hidden");
+				itineraryCard.classList.remove("hidden");
+			});
+
+			backBtn.addEventListener("click", () => {
+				itineraryCard.classList.add("hidden");
+				card.classList.remove("hidden");
+			});
 		</script>
 	</body>
 </html>
